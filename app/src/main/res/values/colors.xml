@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/sky_blue</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="sky_blue">#00B2EE</color>
+    <color name="sky_blue_transparent">#8800B2EE</color>
+    <color name="light_blue">#00FFFF</color>
+    <color name="light_red">#FF4500</color>
+    <color name="light_green">#7CCD7C</color>
+    <color name="light_yellow">#FFFF00</color>
+    <color name="text_light_gray">#4f4f4f</color>
+    <color name="divide_light_gray">#B3B3B3</color>
+    <color name="more_light_gray">#F2F2F2</color>
+    <color name="near_white">#EBEBEB</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+    <color name="more_light_gray_transparent">#88F2F2F2</color>
+    <color name="white_transparent">#88FFFFFF</color>
+
+    <color name="darker_gray">#ddd</color>
+
+
+</resources>

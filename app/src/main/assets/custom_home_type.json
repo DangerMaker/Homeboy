@@ -1,0 +1,104 @@
+{
+  "msg": "成功",
+  "code": "200",
+  "data": {
+    "list": [
+      {
+        "subtitle": "无",
+        "showStyle": "banner",
+        "childList": [
+          {
+            "dataId": 1,
+            "name": "[ROSI]写真视频1010 [4]",
+            "d_subname": "",
+            "parentId": 6,
+            "pic": "http://baiduyuan.veryys.com:80/20171010/OkdOh2VT/1.jpg"
+          },
+          {
+            "dataId": 2,
+            "name": "[ROSI]写真视频1010 [3]",
+            "d_subname": "",
+            "parentId": 6,
+            "pic": "http://baiduyuan.veryys.com:80/20171010/LDt5sb1B/1.jpg"
+          },
+          {
+            "dataId": 3,
+            "name": "[ROSI]写真视频1010 [1]",
+            "d_subname": "",
+            "parentId": 6,
+            "pic": "http://baiduyuan.veryys.com:80/20171010/XTe0Zpgu/1.jpg"
+          },
+          {
+            "dataId": 4,
+            "name": "[ROSI]写真视频1010 [5]",
+            "d_subname": "",
+            "parentId": 6,
+            "pic": "http://baiduyuan.veryys.com:80/20171010/4nL0BMiP/1.jpg"
+          },
+          {
+            "dataId": 5,
+            "name": "[ROSI]写真视频1010 [2]",
+            "d_subname": "",
+            "parentId": 6,
+            "pic": "http://baiduyuan.veryys.com:80/20171010/Eu4G9HNi/1.jpg"
+          },
+          {
+            "dataId": 6,
+            "name": "[PANS写真集]1012 [1]",
+            "d_subname": "",
+            "parentId": 6,
+            "pic": "http://v1.tywj.vip/20171012/tdP1BIRa/1.jpg"
+          }
+        ]
+      },
+      {
+        "subtitle": "情感",
+        "showStyle": "videolist",
+        "childList": [
+          {
+            "dataId": 41,
+            "name": "第一声枪响",
+            "d_subname": "",
+            "parentId": 12,
+            "pic": "http://img3.doubanio.com/view/photo/s_ratio_poster/public/p2506063225.jpg"
+          },
+          {
+            "dataId": 42,
+            "name": "端脑",
+            "d_subname": "",
+            "parentId": 12,
+            "pic": "http://ww1.sinaimg.cn/large/7d172de2gy1fm7ti1klikj207i0b9gm6.jpg"
+          },
+          {
+            "dataId": 43,
+            "name": "风筝",
+            "d_subname": "",
+            "parentId": 12,
+            "pic": "http://ww1.sinaimg.cn/large/7d172de2gy1fmkl7zxjj3j207i0a6t99.jpg"
+          },
+          {
+            "dataId": 44,
+            "name": "国士无双黄飞鸿",
+            "d_subname": "",
+            "parentId": 12,
+            "pic": "http://ww1.sinaimg.cn/large/7d172de2gy1fm6qrsamedj21tk2m2e85.jpg"
+          },
+          {
+            "dataId": 50,
+            "name": "花谢花飞花满天",
+            "d_subname": "",
+            "parentId": 12,
+            "pic": "http://ww1.sinaimg.cn/large/7d172de2gy1fm5lrhm5m1j207i0aqaaq.jpg"
+          },
+          {
+            "dataId": 51,
+            "name": "极光之恋",
+            "d_subname": "",
+            "parentId": 12,
+            "pic": "http://ww1.sinaimg.cn/large/7d172de2gy1flxih0o2j1j207i0b93z3.jpg"
+          }
+        ]
+      }
+    ]
+  }
+}

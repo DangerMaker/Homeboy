@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<SurfaceView-->
+        <!--android:id="@+id/SurfaceView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="230dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--/>-->
+
+    <com.adg.homeboy.view.X5WebView
+        android:id="@+id/surface"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"></com.adg.homeboy.view.X5WebView>
+
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_empty="@layout/view_empty"
+        app:scrollbars="none" />
+
+</LinearLayout>

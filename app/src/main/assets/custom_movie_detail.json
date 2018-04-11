@@ -1,0 +1,49 @@
+{
+  "data": {
+    "list": [
+      {
+        "dataId": 2,
+        "name": "冰川时代4",
+        "pic": "http://phonemovie.ks3-cn-beijing.ksyun.com/image/2017/06/14/1497431339325043522.jpg",
+        "parentId": 1
+      },
+      {
+        "dataId": 3,
+        "name": "迫降航班",
+        "pic": "http://phonemovie.ks3-cn-beijing.ksyun.com/image/2017/06/14/1497430890382079207.jpg",
+        "parentId": 1
+      },
+      {
+        "dataId": 2,
+        "name": "冰川时代4",
+        "pic": "http://phonemovie.ks3-cn-beijing.ksyun.com/image/2017/06/14/1497431339325043522.jpg",
+        "parentId": 1
+      },
+      {
+        "dataId": 3,
+        "name": "迫降航班",
+        "pic": "http://phonemovie.ks3-cn-beijing.ksyun.com/image/2017/06/14/1497430890382079207.jpg",
+        "parentId": 1
+      },
+      {
+        "dataId": 2,
+        "name": "冰川时代4",
+        "pic": "http://phonemovie.ks3-cn-beijing.ksyun.com/image/2017/06/14/1497431339325043522.jpg",
+        "parentId": 1
+      },
+      {
+        "dataId": 3,
+        "name": "迫降航班",
+        "pic": "http://phonemovie.ks3-cn-beijing.ksyun.com/image/2017/06/14/1497430890382079207.jpg",
+        "parentId": 1
+      }
+    ],
+    "name": "羞羞的铁拳",
+    "des": "4399球球大作战官网为您提供球球大作战攻略、球球大作战段位、球球大作战刷棒棒糖、球球大作战名字颜色、球球大作战视频",
+    "length": "1:43:00",
+    "score": "10",
+    "releaseTime": "2017年5月"
+  },
+  "msg": "成功",
+  "code": "200"
+}
