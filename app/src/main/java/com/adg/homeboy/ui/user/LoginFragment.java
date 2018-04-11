@@ -29,7 +29,6 @@ import retrofit2.Response;
 public class LoginFragment extends BaseFragment implements View.OnClickListener {
 
     RelativeLayout idLogin;
-    MyVideoView videoView;
     RelativeLayout backLayout;
 
     @Override
@@ -42,18 +41,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         idLogin = (RelativeLayout) rootView.findViewById(R.id.id_in);
         idLogin.setOnClickListener(this);
 
-        videoView = (MyVideoView) rootView.findViewById(R.id.videoview);
-
-        final Uri videoPath = Uri.parse("android.resource://" + mContext.getPackageName() + "/" +R.raw.rotate_output);
-        videoView.setVideoURI(videoPath);
-        videoView.start();
-
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.start();
-                mp.setLooping(true);
-            }});
 
         backLayout = (RelativeLayout) rootView.findViewById(R.id.back_layout);
         backLayout.setOnClickListener(this);

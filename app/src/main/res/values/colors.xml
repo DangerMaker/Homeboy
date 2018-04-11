@@ -19,6 +19,7 @@
 
     <color name="more_light_gray_transparent">#88F2F2F2</color>
     <color name="white_transparent">#88FFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
 
     <color name="darker_gray">#ddd</color>
 

@@ -2,7 +2,10 @@ package com.adg.homeboy.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -41,5 +44,10 @@ public abstract class BaseActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @ColorInt
+    public int color(@ColorRes int colorRes) {
+        return ContextCompat.getColor(this, colorRes);
     }
 }

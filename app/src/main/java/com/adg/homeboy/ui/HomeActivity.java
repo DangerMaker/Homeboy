@@ -76,13 +76,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         isPermissionOK();
     }
 
-
-    @ColorInt
-    private int color(@ColorRes int colorRes) {
-        return ContextCompat.getColor(this, colorRes);
-    }
-
-
     public void switchTab(int paramInt) {
         this.layout_YoukuChannel.setSelected(false);
         this.layout_YoukuHome.setSelected(false);
