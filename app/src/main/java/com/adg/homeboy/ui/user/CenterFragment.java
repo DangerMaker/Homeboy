@@ -2,27 +2,21 @@ package com.adg.homeboy.ui.user;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.adg.homeboy.R;
 import com.adg.homeboy.base.BaseFragment;
 import com.adg.homeboy.repository.user.UserJsonStore;
 import com.adg.homeboy.repository.user.UserStore;
+import com.adg.homeboy.util.CheckVersionUpdate;
 import com.adg.homeboy.util.ImageLoader;
-import com.adg.homeboy.util.SystemUtils;
 import com.adg.homeboy.util.ToastUtil;
-import com.github.zackratos.ultimatebar.UltimateBar;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -44,6 +38,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
     TextView name;
 
     UserStore userStore;
+    final List<SettingModel> list = new ArrayList<>();
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -81,15 +76,16 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
 
         name = (TextView) rootView.findViewById(R.id.txt_name);
 
-        List<SettingModel> list = new ArrayList<>();
-        list.add(new SettingModel("设置"));
-        list.add(new SettingModel("开通会员"));
-        list.add(new SettingModel("退出登录"));
-
         mAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                switch (position){
+                switch (list.get(position).id){
+                    case 0:
+                        CheckVersionUpdate.checkVersion(mContext,false);
+                        break;
+                    case 1:
+                        ToastUtil.message(mContext,"暂不开放");
+                        break;
                     case 2:
                         ToastUtil.message(mContext,"退出登录");
                         userStore.clear();
@@ -138,8 +134,23 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
 
         if (username != null) {
             name.setText(username);
+
+            list.clear();
+            mAdapter.clear();
+
+            list.add(new SettingModel("检查更新",0));
+            list.add(new SettingModel("开通会员",1));
+            list.add(new SettingModel("退出登录",2));
+            mAdapter.addAll(list);
         }else{
             name.setText("未登录");
+
+            list.clear();
+            mAdapter.clear();
+            list.add(new SettingModel("检查更新",0));
+            list.add(new SettingModel("开通会员",1));
+            mAdapter.addAll(list);
+
         }
     }
 }

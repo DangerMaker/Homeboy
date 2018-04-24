@@ -113,9 +113,9 @@ public class MoviePlayActivity extends BaseActivity {
             public void onResponse(Call<MoviePlayResp> call, Response<MoviePlayResp> response) {
                 if (response.isSuccessful()) {
                     List<Object> obs = new ArrayList<Object>();
-                    obs.add(response.body().data.get(0));
+                    obs.add(response.body().data);
                     adapter.addAll(obs);
-                    mVideoPath = response.body().data.get(0).playurl;
+                    mVideoPath = response.body().data.playurl;
                     prepare();
                 }
             }

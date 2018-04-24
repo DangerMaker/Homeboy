@@ -6,8 +6,10 @@ package com.adg.homeboy.ui.user;
 
 public class SettingModel {
     public String title;
+    public int id;
 
-    public SettingModel(String title) {
+    public SettingModel(String title,int id) {
         this.title = title;
+        this.id = id;
     }
 }

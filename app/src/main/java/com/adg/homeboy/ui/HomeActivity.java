@@ -1,28 +1,19 @@
 package com.adg.homeboy.ui;
 
-import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.Toast;
 
 import com.adg.homeboy.R;
 import com.adg.homeboy.base.BaseActivity;
-import com.adg.homeboy.ui.user.LoginActivity;
-import com.adg.homeboy.ui.webview.FullScreenActivity;
-import com.adg.homeboy.ui.webview.WebViewX5Activity;
+import com.adg.homeboy.util.CheckVersionUpdate;
 import com.adg.homeboy.util.PermissionChecker;
-import com.adg.homeboy.util.ToastUtil;
+import com.adg.homeboy.util.UltimateBar;
 import com.adg.homeboy.view.UnScrollViewPager;
-import com.github.zackratos.ultimatebar.UltimateBar;
-import com.tencent.smtt.sdk.TbsVideo;
 
 /**
  * Created by liuxiaoyu on 2017/12/17.
@@ -74,6 +65,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         switchTab(initPos);
 
         isPermissionOK();
+        CheckVersionUpdate.checkVersion(this,true);
     }
 
     public void switchTab(int paramInt) {
@@ -96,25 +88,24 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
                 UltimateBar.newColorBuilder()
                         .statusColor(color(R.color.colorPrimary))   // 状态栏颜色
-                        .applyNav(true)             // 是否应用到导航栏
                         .build(this)
                         .apply();
+
                 break;
             case 1:
                 localView = this.layout_YoukuChannel;
 
                 UltimateBar.newColorBuilder()
-                        .statusColor(color(R.color.more_light_gray_transparent))   // 状态栏颜色
-                        .applyNav(true)             // 是否应用到导航栏
+                        .statusColor(color(R.color.white))   // 状态栏颜色
                         .build(this)
                         .apply();
+
                 break;
             case 2:
                 localView = this.layout_YouKuSubscribe;
 
                 UltimateBar.newColorBuilder()
-                        .statusColor(color(R.color.more_light_gray_transparent))   // 状态栏颜色
-                        .applyNav(true)             // 是否应用到导航栏
+                        .statusColor(color(R.color.white))   // 状态栏颜色
                         .build(this)
                         .apply();
                 break;
@@ -129,7 +120,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
                 UltimateBar.newColorBuilder()
                         .statusColor(color(R.color.black))   // 状态栏颜色
-                        .applyNav(true)             // 是否应用到导航栏
                         .build(this)
                         .apply();
                 break;
@@ -138,11 +128,15 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
                 UltimateBar.newColorBuilder()
                         .statusColor(color(R.color.colorPrimary))   // 状态栏颜色
-                        .applyNav(true)             // 是否应用到导航栏
                         .build(this)
                         .apply();
                 break;
         }
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            getWindow().getDecorView()
+//                    .setSystemUiVisibility( View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+//        }
 
         if (localView != null) {
             localView.setSelected(true);

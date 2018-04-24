@@ -16,8 +16,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.adg.homeboy.R;
@@ -26,10 +28,13 @@ import com.adg.homeboy.repository.model.MovieDetail;
 import com.adg.homeboy.repository.model.MovieModel;
 import com.adg.homeboy.repository.net.RetrofitHelper;
 import com.adg.homeboy.repository.response.MoviePlayResp;
+import com.adg.homeboy.util.ImageLoader;
+import com.adg.homeboy.util.UltimateBar;
 import com.adg.homeboy.view.WebViewJavaScriptFunction;
 import com.adg.homeboy.view.X5WebView;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.pili.pldroid.player.PLMediaPlayer;
+import com.tencent.smtt.sdk.TbsVideo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,8 +55,11 @@ public class WebViewPlayActivity extends BaseActivity {
     GridLayoutManager layoutManager;
     EasyRecyclerView mRecyclerView;
     MovieDetailAdapter adapter;
+    ImageView imageView;
+    RelativeLayout backBtn;
 
     int id;
+    String pic;
 
     String mVideoPath = "https://cdn.letv-cdn.com/20180320/6ClJpTRx/index.m3u8";
 //    String mVideoPath = "rtmp://live.hkstv.hk.lxdns.com/live/hks";
@@ -62,7 +70,13 @@ public class WebViewPlayActivity extends BaseActivity {
         windowsParams();
         setContentView(R.layout.activity_movie_play);
 
+        UltimateBar.newImmersionBuilder()
+                .applyNav(true)         // 是否应用到导航栏
+                .build(this)
+                .apply();
+
         id = getIntent().getIntExtra("id", -1);
+        pic = getIntent().getStringExtra("pic");
 
         webView = (X5WebView) findViewById(R.id.surface);
         mRecyclerView = (EasyRecyclerView) findViewById(R.id.recycler);
@@ -90,13 +104,41 @@ public class WebViewPlayActivity extends BaseActivity {
         adapter = new MovieDetailAdapter(this);
         mRecyclerView.setAdapterWithProgress(adapter);
 
-        
+        imageView = (ImageView)findViewById(R.id.img);
+        ImageLoader.loadImage(this,pic,imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mVideoPath != null){
+                    if ((TbsVideo.canUseTbsPlayer(WebViewPlayActivity.this))) {
+                        //可以播放视频
+                        Bundle data = new Bundle();
+                        data.putBoolean("standardFullScreen", false);// true表示标准全屏，false表示X5全屏；不设置默认false，
+                        data.putBoolean("supportLiteWnd", false);// false：关闭小窗；true：开启小窗；不设置默认true，
+                        data.putInt("DefaultVideoScreen", 2);//
+                        TbsVideo.openVideo(WebViewPlayActivity.this, mVideoPath, data);
+
+                    } else {
+                        Toast.makeText(WebViewPlayActivity.this, "视频播放器没有准备好", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        backBtn = (RelativeLayout) findViewById(R.id.back);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         setView();
         getData();
     }
 
     private void setView() {
-        webView.loadUrl("file:///android_asset/webpage/fullscreenVideo.html");
+//        webView.loadUrl("file:///android_asset/webpage/fullscreenVideo.html");
 
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
@@ -138,9 +180,9 @@ public class WebViewPlayActivity extends BaseActivity {
             public void onResponse(Call<MoviePlayResp> call, Response<MoviePlayResp> response) {
                 if (response.isSuccessful()) {
                     List<Object> obs = new ArrayList<Object>();
-                    obs.add(response.body().data.get(0));
+                    obs.add(response.body().data);
                     adapter.addAll(obs);
-                    mVideoPath = response.body().data.get(0).playurl;
+                    mVideoPath = response.body().data.playurl;
 
                 }
             }

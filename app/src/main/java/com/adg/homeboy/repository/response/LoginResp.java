@@ -8,5 +8,5 @@ import java.util.List;
  * Created by liuxiaoyu on 2018/3/1.
  */
 
-public class LoginResp extends BaseResp<List<UserModel>> {
+public class LoginResp extends BaseResp<UserModel> {
 }

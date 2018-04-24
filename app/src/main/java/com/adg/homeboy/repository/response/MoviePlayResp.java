@@ -9,5 +9,5 @@ import java.util.List;
  * Created by liuxiaoyu on 2017/12/26.
  */
 
-public class MoviePlayResp extends BaseResp<List<MovieDetail>> {
+public class MoviePlayResp extends BaseResp<MovieDetail> {
 }

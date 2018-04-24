@@ -87,6 +87,7 @@ public class VideoListHolder extends BaseViewHolder<AmazingModel> {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), WebViewPlayActivity.class);
                 intent.putExtra("id",model.id);
+                intent.putExtra("pic",model.pic);
                 getContext().startActivity(intent);
             }
         });

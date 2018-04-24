@@ -27,7 +27,7 @@ import retrofit2.Response;
  * Created by liuxiaoyu on 2018/1/20.
  */
 
-public class SearchResultFragment extends BaseFragment{
+public class SearchResultFragment extends BaseFragment {
 
     EasyRecyclerView mRecyclerView;
     RecyclerArrayAdapter<MovieModel> mAdapter;
@@ -63,7 +63,7 @@ public class SearchResultFragment extends BaseFragment{
 
         FrameLayout frameLayout = new FrameLayout(mContext);
         ProgressBar progressBar = new ProgressBar(mContext);
-        FrameLayout.LayoutParams vlp = new FrameLayout.LayoutParams(200,200);
+        FrameLayout.LayoutParams vlp = new FrameLayout.LayoutParams(200, 200);
         vlp.gravity = Gravity.CENTER;
         progressBar.setLayoutParams(vlp);
         frameLayout.addView(progressBar);
@@ -91,8 +91,8 @@ public class SearchResultFragment extends BaseFragment{
         getList();
     }
 
-    private void getList(){
-        Call<MovieListResp> resp = RetrofitHelper.getMoiveApi().getList(null,keyword,null,page);
+    private void getList() {
+        Call<MovieListResp> resp = RetrofitHelper.getMoiveApi().getList(-1, keyword, -1, page);
         resp.enqueue(new Callback<MovieListResp>() {
             @Override
             public void onResponse(Call<MovieListResp> call, Response<MovieListResp> response) {

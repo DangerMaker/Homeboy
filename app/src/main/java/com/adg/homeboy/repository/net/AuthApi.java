@@ -9,6 +9,7 @@ import com.adg.homeboy.repository.response.MovieListResp;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -18,16 +19,12 @@ import retrofit2.http.Query;
  */
 
 public interface AuthApi {
-//    String HOST = "http://192.168.2.108:8888/";
-    String HOST = App.IP + "tp5/index.php/";
-
-//    @GET("login")
-//    Call<LoginResp> login(@Query("username") String username, @Query("password") String wd);
+    String HOST = App.IP + "codeIgniter/";
 
     @GET("register")
     Call<LoginResp> register(@Query("username") String username, @Query("password") String wd);
 
-    @GET("login")
-    Call<LoginResp> login(@Query("auth_type") String auth_type, @Query("identifier") String id
-            ,@Query("credential") String credential);
+    @GET("login/{auth_type}/{identifier}/{credential}")
+    Call<LoginResp> login(@Path("auth_type") String auth_type, @Path("identifier") String id
+            , @Path("credential") String credential);
 }

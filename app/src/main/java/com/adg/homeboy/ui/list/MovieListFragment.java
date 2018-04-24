@@ -95,19 +95,15 @@ public class MovieListFragment extends BaseFragment {
     }
 
     private void getList() {
-        Call<MovieListResp> resp = RetrofitHelper.getMoiveApi().getList(typeid + "", null, null, page);
+        Call<MovieListResp> resp = RetrofitHelper.getMoiveApi().getList(typeid, "n", -1, page);
         resp.enqueue(new Callback<MovieListResp>() {
             @Override
             public void onResponse(Call<MovieListResp> call, Response<MovieListResp> response) {
                 if (response.isSuccessful()) {
-//                    if (response.body() != null && response.body().data != null) {
                     mAdapter.addAll(response.body().data);
-//                    }
-//                    else {
                     if (mAdapter.getAllData().isEmpty()) {
                         mRecyclerView.showEmpty();
                     }
-//                    }
                 }
             }
 

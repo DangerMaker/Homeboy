@@ -14,6 +14,7 @@ import com.adg.homeboy.R;
 import com.adg.homeboy.repository.model.AmazingModel;
 import com.adg.homeboy.repository.model.MovieModel;
 import com.adg.homeboy.ui.list.MovieListActivity;
+import com.adg.homeboy.ui.movie.WebViewPlayActivity;
 import com.adg.homeboy.util.ImageLoader;
 import com.adg.homeboy.util.ScreenUtil;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
@@ -66,6 +67,7 @@ public class HorizontalHolder extends BaseViewHolder<AmazingModel> {
             params.width = width;
             params.height = height;
             picImage.setLayoutParams(params);
+            setImageListener(picImage,data.childList.get(i));
 
             picTitle.setText(data.childList.get(i).name);
             ImageLoader.loadImage(getContext(), data.childList.get(i).pic, picImage);
@@ -80,7 +82,16 @@ public class HorizontalHolder extends BaseViewHolder<AmazingModel> {
         }
     }
 
-    private void setImageListener(View view, MovieModel model) {
-//        view.setOnClickListener(new ImageListener(task));
+    private void setImageListener(View view, final MovieModel model){
+        view.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), WebViewPlayActivity.class);
+                intent.putExtra("id",model.id);
+                intent.putExtra("pic",model.pic);
+                getContext().startActivity(intent);
+            }
+        });
     }
 }

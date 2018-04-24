@@ -24,7 +24,7 @@
             <TextView android:id="@+id/text_subscribe" android:text="发现" style="@style/homepage_tab_text" />
         </LinearLayout>
     </FrameLayout>
-    <FrameLayout android:id="@+id/layout_vip" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
+    <FrameLayout android:visibility="gone" android:id="@+id/layout_vip" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
         <View android:layout_gravity="bottom" android:background="@drawable/main_tab_selector" android:layout_width="fill_parent" android:layout_height="50dp" />
         <LinearLayout android:gravity="center_horizontal" android:layout_gravity="bottom" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
             <ImageView android:id="@+id/img_vip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/homepage_tab_vip_selector" android:scaleType="centerInside" android:contentDescription="@null" />

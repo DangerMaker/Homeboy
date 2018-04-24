@@ -1,6 +1,7 @@
 package com.adg.homeboy.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.adg.homeboy.R;
 import com.adg.homeboy.repository.model.AmazingModel;
 import com.adg.homeboy.repository.model.MovieModel;
+import com.adg.homeboy.ui.movie.WebViewPlayActivity;
 import com.adg.homeboy.util.ImageLoader;
 import com.adg.homeboy.util.ScreenUtil;
 
@@ -169,11 +171,12 @@ public class BannerView extends RelativeLayout {
 
             ImageLoader.loadImage(getContext(),item.pic, imageView);
             //点击事件
-            imageView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                }
-            });
+//            imageView.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                }
+//            });
+            setImageListener(imageView,item);
             return imageView;
         }
 
@@ -240,5 +243,16 @@ public class BannerView extends RelativeLayout {
         }
     }
 
+    private void setImageListener(View view, final MovieModel model){
+        view.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), WebViewPlayActivity.class);
+                intent.putExtra("id",model.id);
+                intent.putExtra("pic",model.pic);
+                getContext().startActivity(intent);
+            }
+        });
+    }
 }

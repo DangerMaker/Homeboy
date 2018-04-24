@@ -8,7 +8,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@color/more_light_gray_transparent" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,7 +43,9 @@
 
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        >
 
         <GridLayout
             android:id="@+id/gridlayout"

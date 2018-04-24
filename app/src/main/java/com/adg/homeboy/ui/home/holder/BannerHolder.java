@@ -1,9 +1,13 @@
 package com.adg.homeboy.ui.home.holder;
 
+import android.content.Intent;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.adg.homeboy.R;
 import com.adg.homeboy.repository.model.AmazingModel;
+import com.adg.homeboy.repository.model.MovieModel;
+import com.adg.homeboy.ui.movie.WebViewPlayActivity;
 import com.adg.homeboy.view.BannerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
@@ -23,4 +27,5 @@ public class BannerHolder extends BaseViewHolder<AmazingModel> {
     public void setData(AmazingModel data) {
         bannerView.setData(data.childList);
     }
+
 }

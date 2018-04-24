@@ -17,6 +17,8 @@ public class MovieDetalHolder extends BaseViewHolder<MovieDetail> {
     TextView year;
     TextView remark;
     TextView score;
+    TextView des;
+    TextView star;
 
     public MovieDetalHolder(ViewGroup parent) {
         super(parent, R.layout.item_movie_des);
@@ -24,6 +26,8 @@ public class MovieDetalHolder extends BaseViewHolder<MovieDetail> {
         year = $(R.id.year);
         remark = $(R.id.remark);
         score = $(R.id.score);
+        des = $(R.id.des);
+        star = $(R.id.star);
     }
 
     @Override
@@ -32,5 +36,7 @@ public class MovieDetalHolder extends BaseViewHolder<MovieDetail> {
         year.setText(data.year);
         remark.setText(data.remark);
         score.setText(data.score + "分");
+        des.setText("    " + data.content);
+        star.setText(data.star);
     }
 }

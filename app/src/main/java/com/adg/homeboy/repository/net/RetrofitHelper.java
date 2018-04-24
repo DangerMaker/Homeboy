@@ -29,6 +29,7 @@ public class RetrofitHelper {
     private static OkHttpClient okHttpClient = null;
     private static MovieApi videoApi;
     private static AuthApi authApi;
+    private static CommonApi commonApi;
 
     public static MovieApi getMoiveApi() {
         initOkHttp();
@@ -57,6 +58,21 @@ public class RetrofitHelper {
         }
         return authApi;
     }
+
+    public static CommonApi getCommonApi() {
+        initOkHttp();
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(CommonApi.HOST)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        if (commonApi == null) {
+            commonApi = retrofit.create(CommonApi.class);
+        }
+        return commonApi;
+    }
+
 
 
     private static void initOkHttp() {

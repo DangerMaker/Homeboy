@@ -16,6 +16,8 @@
             android:gravity="center"
             android:background="@color/more_light_gray"
             android:text="美女图片"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@color/text_light_gray"
             android:textSize="15sp" />
 
