@@ -2,6 +2,7 @@ package com.adg.homeboy.ui.home;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import com.adg.homeboy.repository.net.MovieApi;
 import com.adg.homeboy.repository.net.RetrofitHelper;
 import com.adg.homeboy.repository.response.AmazingModelResp;
 import com.adg.homeboy.ui.search.SearchActivity;
+import com.adg.homeboy.util.OnListScrollY;
+import com.adg.homeboy.util.SystemUtils;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -33,6 +36,14 @@ import retrofit2.Response;
 public class AmazingFragment extends BaseFragment {
     EasyRecyclerView mRecyclerView;
     AmazingListAdapter adapter;
+    int offset = 0;
+    OnListScrollY scrollY;
+
+    public static AmazingFragment getInstance(OnListScrollY scrollY) {
+        AmazingFragment f = new AmazingFragment();
+        f.scrollY = scrollY;
+        return f;
+    }
 
     @Override
     protected int getLayoutResource() {
@@ -54,36 +65,50 @@ public class AmazingFragment extends BaseFragment {
         mRecyclerView.setProgressView(frameLayout);
         adapter = new AmazingListAdapter(mContext);
         mRecyclerView.setAdapterWithProgress(adapter);
-        adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public View onCreateView(ViewGroup parent) {
-                View searchView = LayoutInflater.from(getContext()).inflate(R.layout.item_search,null);
-                searchView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(mContext, SearchActivity.class));
-                    }
-                });
-                return searchView;
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                offset = offset + dy;
+                scrollY.y(offset);
             }
 
             @Override
-            public void onBindView(View headerView) {
-
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
             }
         });
+
+//        adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
+//            @Override
+//            public View onCreateView(ViewGroup parent) {
+//                View searchView = LayoutInflater.from(getContext()).inflate(R.layout.item_search,null);
+//                searchView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        startActivity(new Intent(mContext, SearchActivity.class));
+//                    }
+//                });
+//                return searchView;
+//            }
+//
+//            @Override
+//            public void onBindView(View headerView) {
+//
+//            }
+//        });
         getModel();
     }
 
-    private void getModel(){
+    private void getModel() {
         MovieApi api = RetrofitHelper.getMoiveApi();
-        Call<AmazingModelResp> resp =  api.getHomePage();
+        Call<AmazingModelResp> resp = api.getHomePage();
         resp.enqueue(new Callback<AmazingModelResp>() {
             @Override
             public void onResponse(Call<AmazingModelResp> call, Response<AmazingModelResp> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     adapter.addAll(response.body().data);
-                }else{
+                } else {
 
                 }
             }

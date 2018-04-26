@@ -15,6 +15,7 @@
     <color name="more_light_gray">#F2F2F2</color>
     <color name="near_white">#EBEBEB</color>
     <color name="white">#ffffff</color>
+    <color name="white_half_transparent">#88ffffff</color>
     <color name="black">#000000</color>
 
     <color name="more_light_gray_transparent">#88F2F2F2</color>

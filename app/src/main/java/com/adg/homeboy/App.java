@@ -22,7 +22,7 @@ public class App extends Application {
 
     public static Context globalContext;
     public static String COOKIE;
-//    public static String IP = "http://192.168.2.107:8888/";
+//    public static String IP = "http://192.168.2.102:8888/";
     public static String IP = "http://10.0.2.2:8888/";
 
 

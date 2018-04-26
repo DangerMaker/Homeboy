@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import com.adg.homeboy.repository.model.AmazingModel;
 import com.adg.homeboy.ui.home.holder.BannerHolder;
 import com.adg.homeboy.ui.home.holder.HorizontalHolder;
+import com.adg.homeboy.ui.home.holder.ThreeListHolder;
+import com.adg.homeboy.ui.home.holder.TitleHolder;
 import com.adg.homeboy.ui.home.holder.VideoListHolder;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -20,6 +22,8 @@ public class AmazingListAdapter extends RecyclerArrayAdapter<AmazingModel> {
     public static final int TYPE_BANNER = 0;
     public static final int TYPE_LIST = 1;
     public static final int TYPE_HONRIZAONTAL = 2;
+    public static final  int TYPE_THREE = 3;
+    public static final  int TYPE_CATEGORY = 4;
 
     public AmazingListAdapter(Context context) {
         super(context);
@@ -34,6 +38,10 @@ public class AmazingListAdapter extends RecyclerArrayAdapter<AmazingModel> {
             return TYPE_LIST;
         }else if(model.showStyle.equals(AmazingModel.TYPE_HONRIZAONTAL)){
             return TYPE_HONRIZAONTAL;
+        }else if(model.showStyle.equals(AmazingModel.TYPE_THREE)){
+            return TYPE_THREE;
+        }else if(model.showStyle.equals(AmazingModel.TYPE_CATEGORY)){
+            return TYPE_CATEGORY;
         }
         return -1;
     }
@@ -47,6 +55,10 @@ public class AmazingListAdapter extends RecyclerArrayAdapter<AmazingModel> {
                 return new VideoListHolder(parent);
             case TYPE_HONRIZAONTAL:
                 return new HorizontalHolder(parent);
+            case TYPE_THREE:
+                return new ThreeListHolder(parent);
+            case TYPE_CATEGORY:
+                return new TitleHolder(parent);
             default:
                 throw new InvalidParameterException();
         }

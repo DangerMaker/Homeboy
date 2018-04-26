@@ -13,7 +13,12 @@ import com.adg.homeboy.base.BaseActivity;
 import com.adg.homeboy.util.CheckVersionUpdate;
 import com.adg.homeboy.util.PermissionChecker;
 import com.adg.homeboy.util.UltimateBar;
+import com.adg.homeboy.util.eventbus.TabEvent;
 import com.adg.homeboy.view.UnScrollViewPager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by liuxiaoyu on 2017/12/17.
@@ -86,8 +91,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             case 0:
                 localView = this.layout_YoukuHome;
 
-                UltimateBar.newColorBuilder()
-                        .statusColor(color(R.color.colorPrimary))   // 状态栏颜色
+                UltimateBar.newImmersionBuilder()
                         .build(this)
                         .apply();
 
@@ -176,7 +180,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-
     PermissionChecker checker = new PermissionChecker(this);
 
     public boolean isPermissionOK() {
@@ -187,5 +190,22 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         checker.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onTabEvent(TabEvent event) {/* Do something */
+        switchTab(1);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 }

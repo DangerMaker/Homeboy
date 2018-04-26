@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -105,8 +106,8 @@ public class BannerView extends RelativeLayout {
                 getResources().getDisplayMetrics().heightPixels);
         LayoutInflater.from(getContext()).inflate(R.layout.banner_home, this);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mViewPager.getLayoutParams().width = width;
-        mViewPager.getLayoutParams().height = width * 50 / 100;
+        /*mViewPager.getLayoutParams().width = width;
+        mViewPager.getLayoutParams().height = width * 50 / 100;*/
         group = (LinearLayout) findViewById(R.id.viewGroup);
         title = (TextView) findViewById(R.id.title);
     }
@@ -177,7 +178,14 @@ public class BannerView extends RelativeLayout {
 //                }
 //            });
             setImageListener(imageView,item);
-            return imageView;
+
+            CardView cardView = new CardView(getContext());
+            cardView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            cardView.setCardElevation(40);
+            cardView.setRadius(40);
+            cardView.addView(imageView);
+
+            return cardView;
         }
 
     }

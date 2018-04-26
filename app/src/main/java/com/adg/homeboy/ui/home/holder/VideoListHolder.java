@@ -28,10 +28,12 @@ public class VideoListHolder extends BaseViewHolder<AmazingModel> {
     GridLayout gridLayout;
     TextView title;
     TextView more;
+    ImageView next;
 
     DisplayMetrics dm;
     int padding = 4;
     int margin;
+    int offset; //两边间距
 
     public VideoListHolder(ViewGroup itemView) {
         super(itemView, R.layout.item_amazing_videolist);
@@ -39,55 +41,55 @@ public class VideoListHolder extends BaseViewHolder<AmazingModel> {
         gridLayout = $(R.id.gridlayout);
         title = $(R.id.title);
         more = $(R.id.more);
-        margin = ScreenUtil.dip2px(getContext(),padding);
+        next = $(R.id.next);
+        margin = ScreenUtil.dip2px(getContext(), padding);
+        offset = ScreenUtil.dip2px(getContext(), 40);
     }
 
     @Override
     public void setData(final AmazingModel data) {
         gridLayout.removeAllViews();
         title.setText(data.subtitle);
-        more.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener vo = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), MovieListActivity.class);
-                intent.putExtra("typeid",data.type);
+                intent.putExtra("typeid", data.type);
                 getContext().startActivity(intent);
             }
-        });
+        };
+
+        more.setOnClickListener(vo);
+        next.setOnClickListener(vo);
 
         for (int i = 0; i < data.childList.size(); i++) {
-            View convertView = LayoutInflater.from(getContext()).inflate(R.layout.subitem_videolist, gridLayout,false);
+            View convertView = LayoutInflater.from(getContext()).inflate(R.layout.subitem_videolist, gridLayout, false);
             TextView picTitle = (TextView) convertView.findViewById(R.id.title);
             ImageView picImage = (ImageView) convertView.findViewById(R.id.img);
 
-            ViewGroup.LayoutParams params = picImage.getLayoutParams();
-            int width = (dm.widthPixels - 4 * margin) / 3;
-            int height = (int) (width / 0.667);
-            params.width = width;
-            params.height = height;
-            picImage.setLayoutParams(params);
+            int width = (dm.widthPixels - offset - 2 * margin) / 3;
 
             picTitle.setText(data.childList.get(i).name);
             ImageLoader.loadImage(getContext(), data.childList.get(i).pic, picImage);
-            setImageListener(picImage,data.childList.get(i));
+            setImageListener(picImage, data.childList.get(i));
 
-            GridLayout.LayoutParams gl = (GridLayout.LayoutParams)convertView.getLayoutParams();
-            gl.width = (dm.widthPixels - 4 * margin) / 3;
-            gl.height = (int)(width /0.667);
-            gl.setMargins(margin / 2, margin / 2, margin /2, margin / 2);
+            GridLayout.LayoutParams gl = (GridLayout.LayoutParams) convertView.getLayoutParams();
+            gl.width =  (dm.widthPixels - offset - 2 * margin) / 3;
+            gl.height = (int) (width / 0.667);
+            gl.setMargins(margin / 2, margin / 2, margin / 2, margin / 2);
 
             gridLayout.addView(convertView);
         }
     }
 
-    private void setImageListener(View view, final MovieModel model){
-        view.setOnClickListener(new View.OnClickListener(){
+    private void setImageListener(View view, final MovieModel model) {
+        view.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), WebViewPlayActivity.class);
-                intent.putExtra("id",model.id);
-                intent.putExtra("pic",model.pic);
+                intent.putExtra("id", model.id);
+                intent.putExtra("pic", model.pic);
                 getContext().startActivity(intent);
             }
         });
