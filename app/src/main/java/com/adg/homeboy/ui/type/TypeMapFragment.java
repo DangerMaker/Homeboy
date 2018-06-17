@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SyncStatusObserver;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -69,14 +70,15 @@ public class TypeMapFragment extends BaseFragment {
         adapter = new MovieTypeAdapter(mContext);
         mRecyclerView.setAdapterWithProgress(adapter);
 
-        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Intent intent = new Intent(mContext, MovieListActivity.class);
-                intent.putExtra("typeid",adapter.getItem(position).id);
-                startActivity(intent);
-            }
-        });
+//        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                Intent intent = new Intent(mContext, MovieListActivity.class);
+//                intent.putExtra("typeid",adapter.getItem(position).id);
+////                startActivity(intent);
+//                Log.e("type",adapter.getItem(position).id + "");
+//            }
+//        });
 
         Call<MoiveTypeMapResp> call = RetrofitHelper.getMoiveApi().getTypeMap();
         call.enqueue(new Callback<MoiveTypeMapResp>() {

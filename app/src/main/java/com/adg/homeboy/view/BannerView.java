@@ -16,10 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.adg.homeboy.R;
-import com.adg.homeboy.repository.model.AmazingModel;
 import com.adg.homeboy.repository.model.MovieModel;
-import com.adg.homeboy.ui.movie.WebViewPlayActivity;
+import com.adg.homeboy.player.MoviePlayActivity;
 import com.adg.homeboy.util.ImageLoader;
+import com.adg.homeboy.util.JumpActivityUtils;
 import com.adg.homeboy.util.ScreenUtil;
 
 import java.util.ArrayList;
@@ -256,10 +256,12 @@ public class BannerView extends RelativeLayout {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), WebViewPlayActivity.class);
+                Intent intent = new Intent();
                 intent.putExtra("id",model.id);
                 intent.putExtra("pic",model.pic);
-                getContext().startActivity(intent);
+                intent.putExtra("playurl",model.playurl);
+                JumpActivityUtils.toPlay(intent,getContext());
+
             }
         });
     }

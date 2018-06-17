@@ -5,12 +5,13 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.adg.homeboy.R;
 import com.adg.homeboy.repository.model.MovieModel;
-import com.adg.homeboy.ui.movie.WebViewPlayActivity;
 import com.adg.homeboy.util.ImageLoader;
+import com.adg.homeboy.util.JumpActivityUtils;
 import com.adg.homeboy.util.ScreenUtil;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
@@ -22,6 +23,7 @@ public class MovieRelatedHolder extends BaseViewHolder<MovieModel> {
 
     TextView title;
     ImageView bg;
+    RelativeLayout textLayout;
 
     DisplayMetrics dm;
     int padding = 4;
@@ -31,6 +33,7 @@ public class MovieRelatedHolder extends BaseViewHolder<MovieModel> {
         super(itemView, R.layout.subitem_videolist);
         bg = $(R.id.img);
         title = $(R.id.title);
+        textLayout = $(R.id.text_layout);
 
         dm = getContext().getResources().getDisplayMetrics();
         margin = ScreenUtil.dip2px(getContext(),padding);
@@ -42,10 +45,15 @@ public class MovieRelatedHolder extends BaseViewHolder<MovieModel> {
         title.setText(data.name);
 
         ViewGroup.LayoutParams params = bg.getLayoutParams();
-        params.width = (dm.widthPixels - 4 * margin) / 3;
+//        params.width = (dm.widthPixels - 2 * margin) / 3;
+        params.width = ScreenUtil.getScreenWidth(getContext()) /3;
         params.height = (int)(params.width /0.667);
         ImageLoader.loadImage(getContext(), data.pic, bg);
         setImageListener(itemView,data);
+
+        ViewGroup.LayoutParams textParams = textLayout.getLayoutParams();
+        textParams.width = (dm.widthPixels - 2 * margin) / 3;
+        textParams.height = ScreenUtil.dip2px(getContext(),40);
     }
 
     private void setImageListener(View view, final MovieModel model){
@@ -53,10 +61,11 @@ public class MovieRelatedHolder extends BaseViewHolder<MovieModel> {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), WebViewPlayActivity.class);
-                intent.putExtra("id",model.id);
-                intent.putExtra("pic",model.pic);
-                getContext().startActivity(intent);
+                Intent intent = new Intent();
+                intent.putExtra("id", model.id);
+                intent.putExtra("pic", model.pic);
+                intent.putExtra("playurl",model.playurl);
+                JumpActivityUtils.toPlay(intent,getContext());
             }
         });
     }

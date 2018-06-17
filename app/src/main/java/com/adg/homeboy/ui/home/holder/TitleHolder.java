@@ -9,13 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.adg.homeboy.R;
 import com.adg.homeboy.repository.model.AmazingModel;
 import com.adg.homeboy.repository.model.MovieModel;
 import com.adg.homeboy.ui.list.MovieListActivity;
-import com.adg.homeboy.ui.movie.WebViewPlayActivity;
 import com.adg.homeboy.util.ImageLoader;
 import com.adg.homeboy.util.ScreenUtil;
 import com.adg.homeboy.util.eventbus.TabEvent;
@@ -29,7 +29,7 @@ import java.util.List;
  * Created by liuxiaoyu on 2017/12/24.
  */
 
-public class TitleHolder extends BaseViewHolder<AmazingModel> {
+public class  TitleHolder extends BaseViewHolder<AmazingModel> {
 
     TextView title1;
     ImageView imageView1;
@@ -38,9 +38,9 @@ public class TitleHolder extends BaseViewHolder<AmazingModel> {
     TextView title3;
     ImageView imageView3;
 
-    CardView cardView1;
-    CardView cardView2;
-    CardView cardView3;
+    LinearLayout layout1;
+    LinearLayout layout2;
+    LinearLayout layout3;
 
     public TitleHolder(ViewGroup itemView) {
         super(itemView, R.layout.item_type_home_child);
@@ -52,9 +52,9 @@ public class TitleHolder extends BaseViewHolder<AmazingModel> {
         imageView2 = $(R.id.img2);
         imageView3 = $(R.id.img3);
 
-        cardView1 = $(R.id.card1);
-        cardView2 = $(R.id.card2);
-        cardView3 = $(R.id.card3);
+        layout1 = $(R.id.layout1);
+        layout2 = $(R.id.layout2);
+        layout3 = $(R.id.layout3);
     }
 
     @Override
@@ -64,13 +64,13 @@ public class TitleHolder extends BaseViewHolder<AmazingModel> {
         title2.setText(list.get(1).name);
         title3.setText(list.get(2).name);
 
-        imageView1.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.logo_whole));
+        ImageLoader.loadImage(getContext(), data.childList.get(0).pic, imageView1);
         ImageLoader.loadImage(getContext(), data.childList.get(1).pic, imageView2);
         ImageLoader.loadImage(getContext(), data.childList.get(2).pic, imageView3);
 
-        setImageListener(cardView1, list.get(0));
-        setImageListener(cardView2, list.get(1));
-        setImageListener(cardView3, list.get(2));
+        setImageListener(layout1, list.get(0));
+        setImageListener(layout2, list.get(1));
+        setImageListener(layout3, list.get(2));
     }
 
     private void setImageListener(View view, final MovieModel model) {

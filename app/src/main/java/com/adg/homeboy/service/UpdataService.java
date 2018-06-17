@@ -12,9 +12,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
-import android.support.v4.BuildConfig;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
+
+import com.adg.homeboy.BuildConfig;
 
 import java.io.File;
 

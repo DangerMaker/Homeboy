@@ -20,7 +20,7 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
 
         UltimateBar.newImmersionBuilder()
-                .applyNav(true)         // 是否应用到导航栏
+//                .applyNav(true)         // 是否应用到导航栏
                 .build(this)
                 .apply();
     }

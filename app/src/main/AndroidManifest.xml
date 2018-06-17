@@ -17,12 +17,39 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.movie.MoviePlayActivity" />
+
+        <activity android:name=".player.MoviePlayActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:launchMode="singleTop">
+        <intent-filter>
+            <category android:name="android.intent.category.DEFAULT"/>
+            <data android:scheme="http"/>
+            <data android:scheme="https"/>
+            <data android:scheme="content"/>
+            <data android:scheme="asset"/>
+            <data android:scheme="file"/>
+        </intent-filter>
+
+        <intent-filter>
+            <action android:name="com.google.android.exoplayer.demo.action.VIEW_LIST"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+        </intent-filter>
+    </activity>
+
+    <service android:name=".player.DemoDownloadService" >
+        <intent-filter>
+            <action android:name="com.google.android.exoplayer.downloadService.action.INIT"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+        </intent-filter>
+    </service>
+    <service android:name="com.google.android.exoplayer2.scheduler.PlatformScheduler$PlatformSchedulerService"
+        android:permission="android.permission.BIND_JOB_SERVICE"
+        android:exported="true"/>
+
         <activity android:name=".ui.HomeActivity"  android:launchMode="singleTask"/>
         <activity android:name=".ui.list.MovieListActivity" />
         <activity android:name=".ui.search.SearchActivity"  android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".ui.user.LoginActivity" />
-        <activity android:name=".ui.webview.WebViewX5Activity" />
 
         <activity
             android:name="com.tencent.smtt.sdk.VideoActivity"
@@ -36,13 +63,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".ui.webview.FullScreenActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:label="@string/app_name" >
-        </activity>
-        <activity android:name=".ui.movie.WebViewPlayActivity" />
 
         <service
             android:name=".service.UpdataService"

@@ -7,10 +7,10 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:paddingTop="30dp"
+        android:paddingTop="55dp"
         android:id="@+id/center_header"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="165dp"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:paddingBottom="10dp"

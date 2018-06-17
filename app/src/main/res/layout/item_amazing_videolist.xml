@@ -54,8 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnCount="3"
-        android:paddingLeft="18dp"
-        android:paddingRight="18dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
         android:layout_marginBottom="20dp"
          />
 

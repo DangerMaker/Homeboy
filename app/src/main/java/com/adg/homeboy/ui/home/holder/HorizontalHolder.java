@@ -14,8 +14,8 @@ import com.adg.homeboy.R;
 import com.adg.homeboy.repository.model.AmazingModel;
 import com.adg.homeboy.repository.model.MovieModel;
 import com.adg.homeboy.ui.list.MovieListActivity;
-import com.adg.homeboy.ui.movie.WebViewPlayActivity;
 import com.adg.homeboy.util.ImageLoader;
+import com.adg.homeboy.util.JumpActivityUtils;
 import com.adg.homeboy.util.ScreenUtil;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
@@ -31,7 +31,7 @@ public class HorizontalHolder extends BaseViewHolder<AmazingModel> {
     ImageView next;
 
     DisplayMetrics dm;
-    int padding = 8;
+    int padding = 4;
     int margin;
 
     int offset; //两边间距
@@ -46,7 +46,7 @@ public class HorizontalHolder extends BaseViewHolder<AmazingModel> {
         title = $(R.id.title);
         more = $(R.id.more);
 
-        offset = ScreenUtil.dip2px(getContext(), 40);
+        offset = ScreenUtil.dip2px(getContext(), 20);
 
     }
 
@@ -68,7 +68,7 @@ public class HorizontalHolder extends BaseViewHolder<AmazingModel> {
         next.setOnClickListener(vo);
 
         for (int i = 0; i < data.childList.size(); i++) {
-            View convertView = LayoutInflater.from(getContext()).inflate(R.layout.subitem_videolist, gridLayout, false);
+            View convertView = LayoutInflater.from(getContext()).inflate(R.layout.subitem_type1, gridLayout, false);
             TextView picTitle = (TextView) convertView.findViewById(R.id.title);
             ImageView picImage = (ImageView) convertView.findViewById(R.id.img);
 
@@ -94,10 +94,11 @@ public class HorizontalHolder extends BaseViewHolder<AmazingModel> {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), WebViewPlayActivity.class);
-                intent.putExtra("id",model.id);
-                intent.putExtra("pic",model.pic);
-                getContext().startActivity(intent);
+                Intent intent = new Intent();
+                intent.putExtra("id", model.id);
+                intent.putExtra("pic", model.pic);
+                intent.putExtra("playurl",model.playurl);
+                JumpActivityUtils.toPlay(intent,getContext());
             }
         });
     }

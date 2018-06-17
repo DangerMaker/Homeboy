@@ -8,4 +8,5 @@ public class MovieModel {
     public int id;
     public String name;
     public String pic;
+    public String playurl;
 }

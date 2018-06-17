@@ -13,8 +13,8 @@ import com.adg.homeboy.R;
 import com.adg.homeboy.repository.model.AmazingModel;
 import com.adg.homeboy.repository.model.MovieModel;
 import com.adg.homeboy.ui.list.MovieListActivity;
-import com.adg.homeboy.ui.movie.WebViewPlayActivity;
 import com.adg.homeboy.util.ImageLoader;
+import com.adg.homeboy.util.JumpActivityUtils;
 import com.adg.homeboy.util.ScreenUtil;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
@@ -42,7 +42,7 @@ public class ThreeListHolder extends BaseViewHolder<AmazingModel> {
         more = $(R.id.more);
         next = $(R.id.next);
         margin = ScreenUtil.dip2px(getContext(), padding);
-        offset = ScreenUtil.dip2px(getContext(), 40);
+        offset = ScreenUtil.dip2px(getContext(), 10);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ThreeListHolder extends BaseViewHolder<AmazingModel> {
         next.setOnClickListener(vo);
 
         for (int i = 0; i < data.childList.size(); i++) {
-            View convertView = LayoutInflater.from(getContext()).inflate(R.layout.subitem_videolist, gridLayout, false);
+            View convertView = LayoutInflater.from(getContext()).inflate(R.layout.subitem_type1, gridLayout, false);
             TextView picTitle = (TextView) convertView.findViewById(R.id.title);
             ImageView picImage = (ImageView) convertView.findViewById(R.id.img);
 
@@ -102,10 +102,11 @@ public class ThreeListHolder extends BaseViewHolder<AmazingModel> {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), WebViewPlayActivity.class);
+                Intent intent = new Intent();
                 intent.putExtra("id", model.id);
                 intent.putExtra("pic", model.pic);
-                getContext().startActivity(intent);
+                intent.putExtra("playurl",model.playurl);
+                JumpActivityUtils.toPlay(intent,getContext());
             }
         });
     }

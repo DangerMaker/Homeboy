@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:scaleType="center"
             android:padding="12dp"
-            android:src="@drawable/back_indicator" />
+            android:src="@drawable/searchbar_delete_selected" />
 
 
         <View

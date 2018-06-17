@@ -91,27 +91,27 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             case 0:
                 localView = this.layout_YoukuHome;
 
-                UltimateBar.newImmersionBuilder()
-                        .build(this)
-                        .apply();
+//                UltimateBar.newImmersionBuilder()
+//                        .build(this)
+//                        .apply();
 
                 break;
             case 1:
                 localView = this.layout_YoukuChannel;
 
-                UltimateBar.newColorBuilder()
-                        .statusColor(color(R.color.white))   // 状态栏颜色
-                        .build(this)
-                        .apply();
+//                UltimateBar.newColorBuilder()
+//                        .statusColor(color(R.color.white))   // 状态栏颜色
+//                        .build(this)
+//                        .apply();
 
                 break;
             case 2:
                 localView = this.layout_YouKuSubscribe;
 
-                UltimateBar.newColorBuilder()
-                        .statusColor(color(R.color.white))   // 状态栏颜色
-                        .build(this)
-                        .apply();
+//                UltimateBar.newColorBuilder()
+//                        .statusColor(color(R.color.white))   // 状态栏颜色
+//                        .build(this)
+//                        .apply();
                 break;
             case 3:
                 localView = this.layout_YoukuVip;
@@ -122,18 +122,18 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     }
                 }, 1000);
 
-                UltimateBar.newColorBuilder()
-                        .statusColor(color(R.color.black))   // 状态栏颜色
-                        .build(this)
-                        .apply();
+//                UltimateBar.newColorBuilder()
+//                        .statusColor(color(R.color.black))   // 状态栏颜色
+//                        .build(this)
+//                        .apply();
                 break;
             case 4:
                 localView = this.layout_YoukuUser;
 
-                UltimateBar.newColorBuilder()
-                        .statusColor(color(R.color.colorPrimary))   // 状态栏颜色
-                        .build(this)
-                        .apply();
+//                UltimateBar.newColorBuilder()
+//                        .statusColor(color(R.color.colorPrimary))   // 状态栏颜色
+//                        .build(this)
+//                        .apply();
                 break;
         }
 

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.adg.homeboy.R;
 import com.adg.homeboy.base.BaseFragment;
@@ -29,6 +30,10 @@ public class AmazingHomeFragment extends BaseFragment {
     ImageView topBg;
     ImageView scan;
     ImageView clock;
+    ImageView searchBg;
+    TextView searchTv;
+    ImageView line;
+    int lastoffset = 0;
 
     AmazingHomeAdatper adapter;
 
@@ -39,14 +44,13 @@ public class AmazingHomeFragment extends BaseFragment {
 
     @Override
     protected void onCreateView() {
-//        tableLayout = (TabLayout) rootView.findViewById(R.id.sliding_tabs);
         viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
         topBg = (ImageView) rootView.findViewById(R.id.top_bg);
         scan = (ImageView) rootView.findViewById(R.id.scan);
         clock = (ImageView) rootView.findViewById(R.id.clock);
-
-
-//        topBg.setAlpha(0.5f);
+        searchBg = (ImageView) rootView.findViewById(R.id.search_bg);
+        searchTv = (TextView) rootView.findViewById(R.id.search_txt);
+        line = (ImageView) rootView.findViewById(R.id.line);
 
         AmazingFragment f1 = AmazingFragment.getInstance(new OnListScrollY() {
             @Override
@@ -56,11 +60,21 @@ public class AmazingHomeFragment extends BaseFragment {
                     topBg.setAlpha((255 - offset) / 255f);
                     scan.setColorFilter(Color.argb(255, 255 - offset, 255 - offset, 255 - offset));
                     clock.setColorFilter(Color.argb(255, 255 - offset, 255 - offset, 255 - offset));
+                    searchBg.setColorFilter(Color.argb(255, 255 - offset, 255 - offset, 255 - offset));
+                    searchTv.setTextColor(Color.argb(255, 255 - offset, 255 - offset, 255 - offset));
+                    line.setColorFilter(Color.argb(255, 255 - offset, 255 - offset, 255 - offset));
                 } else {
+                    if(lastoffset > 255){
+                        return;
+                    }
                     topBg.setAlpha(0f);
                     scan.setColorFilter(Color.BLACK);
                     clock.setColorFilter(Color.BLACK);
+                    searchBg.setColorFilter(Color.BLACK);
+                    searchTv.setTextColor(Color.BLACK);
+                    line.setColorFilter(Color.BLACK);
                 }
+                lastoffset = offset;
             }
         });
 //        EmptyFragment f2 = EmptyFragment.getInstance("1", "2");

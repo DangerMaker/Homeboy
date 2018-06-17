@@ -24,7 +24,6 @@ public class MovieTypeAdapter extends RecyclerArrayAdapter<MovieType> {
 
     public static final int PARENT = 1;
     public static final int CHILD = 2;
-//    private OnItemClickListener mOnItemClickListener = null;
 
     public MovieTypeAdapter(Context context) {
         super(context);
@@ -42,14 +41,6 @@ public class MovieTypeAdapter extends RecyclerArrayAdapter<MovieType> {
 
     @Override
     public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-//        parent.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (mOnItemClickListener != null) {
-//                    mOnItemClickListener.onItemClick(v, (int) v.getTag());
-//                }
-//            }
-//        });
 
         switch (viewType) {
             case PARENT:
@@ -61,18 +52,4 @@ public class MovieTypeAdapter extends RecyclerArrayAdapter<MovieType> {
         }
 
     }
-
-//    @Override
-//    public void OnBindViewHolder(BaseViewHolder holder, int position) {
-//        super.OnBindViewHolder(holder, position);
-//        holder.itemView.setTag(position);
-//    }
-//
-//    public  interface OnItemClickListener {
-//        void onItemClick(View view, int position);
-//    }
-//
-//    public void setOnItemClickListener(OnItemClickListener listener) {
-//        this.mOnItemClickListener = listener;
-//    }
 }
