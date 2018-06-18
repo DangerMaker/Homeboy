@@ -1,21 +1,22 @@
 package com.adg.homeboy.ui.search;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.adg.homeboy.R;
 import com.adg.homeboy.base.BaseFragment;
-import com.adg.homeboy.repository.model.MovieModel;
 import com.adg.homeboy.repository.model.MovieType;
 import com.adg.homeboy.repository.net.RetrofitHelper;
 import com.adg.homeboy.repository.response.MoiveTypeMapResp;
-import com.adg.homeboy.repository.response.MovieListResp;
 import com.adg.homeboy.ui.type.holder.TypeChildHolder;
-import com.jude.easyrecyclerview.EasyRecyclerView;
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.adg.homeboy.util.BaseRecyclerViewAdapter;
+import com.adg.homeboy.util.BaseViewHolder;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
@@ -29,8 +30,10 @@ import retrofit2.Response;
 
 public class SearchFragment extends BaseFragment {
 
-    EasyRecyclerView recycler;
-    RecyclerArrayAdapter<MovieType> mAdapter;
+    SmartRefreshLayout refreshLayout;
+
+    RecyclerView recycler;
+    BaseRecyclerViewAdapter<MovieType> mAdapter;
     GridLayoutManager manager;
 
     @Override
@@ -40,9 +43,13 @@ public class SearchFragment extends BaseFragment {
 
     @Override
     protected void onCreateView() {
-        recycler = (EasyRecyclerView) rootView.findViewById(R.id.recycler);
+        recycler = (RecyclerView) rootView.findViewById(R.id.recycler);
+        refreshLayout = (SmartRefreshLayout) rootView.findViewById(R.id.refreshLayout);
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setEnableRefresh(false);
+
         if (mAdapter == null) {
-            mAdapter = new RecyclerArrayAdapter<MovieType>(mContext) {
+            mAdapter = new BaseRecyclerViewAdapter<MovieType>(mContext) {
                 @Override
                 public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
                     return new TypeChildHolder(parent);
@@ -74,7 +81,7 @@ public class SearchFragment extends BaseFragment {
 
         );
 
-        mAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 String name = mAdapter.getAllData().get(position).name;

@@ -13,10 +13,10 @@ import com.adg.homeboy.R;
 import com.adg.homeboy.repository.model.AmazingModel;
 import com.adg.homeboy.repository.model.MovieModel;
 import com.adg.homeboy.ui.list.MovieListActivity;
+import com.adg.homeboy.util.BaseViewHolder;
 import com.adg.homeboy.util.ImageLoader;
 import com.adg.homeboy.util.JumpActivityUtils;
 import com.adg.homeboy.util.ScreenUtil;
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
 /**
  * Created by liuxiaoyu on 2017/12/21.

@@ -9,8 +9,8 @@ import com.adg.homeboy.ui.home.holder.HorizontalHolder;
 import com.adg.homeboy.ui.home.holder.ThreeListHolder;
 import com.adg.homeboy.ui.home.holder.TitleHolder;
 import com.adg.homeboy.ui.home.holder.VideoListHolder;
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.adg.homeboy.util.BaseRecyclerViewAdapter;
+import com.adg.homeboy.util.BaseViewHolder;
 
 import java.security.InvalidParameterException;
 
@@ -18,7 +18,7 @@ import java.security.InvalidParameterException;
  * Created by liuxiaoyu on 2017/12/20.
  */
 
-public class AmazingListAdapter extends RecyclerArrayAdapter<AmazingModel> {
+public class AmazingListAdapter extends BaseRecyclerViewAdapter<AmazingModel> {
     public static final int TYPE_BANNER = 0;
     public static final int TYPE_LIST = 1;
     public static final int TYPE_HONRIZAONTAL = 2;

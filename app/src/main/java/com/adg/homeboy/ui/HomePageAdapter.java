@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.adg.homeboy.ui.home.AmazingHomeFragment;
 import com.adg.homeboy.ui.home.MemberWelfareFragment;
 import com.adg.homeboy.ui.type.TypeMapFragment;
-import com.adg.homeboy.ui.user.CenterFragment;
+//import com.adg.homeboy.ui.user.CenterFragment;
 import com.adg.homeboy.ui.user.LoginFragment;
 import com.adg.homeboy.ui.user.LoginFragment1;
 import com.adg.homeboy.ui.webview.WebViewFragment;
@@ -48,7 +48,7 @@ public class HomePageAdapter extends FragmentPagerAdapter {
             case POSITION_VIP_ITEM:
                 return  new MemberWelfareFragment();
             case POSITION_USER_ITEM:
-                return new CenterFragment();
+//                return new CenterFragment();
         }
         return EmptyFragment.getInstance("parent",arg + "");
     }

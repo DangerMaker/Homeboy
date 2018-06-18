@@ -5,4 +5,10 @@ package com.adg.homeboy.util.eventbus;
  */
 
 public class TabEvent {
+    public int position;
+
+    public TabEvent(int position) {
+        this.position = position;
+    }
+
 }

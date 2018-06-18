@@ -11,8 +11,8 @@ import com.adg.homeboy.ui.movie.holder.MovieDetalHolder;
 import com.adg.homeboy.ui.movie.holder.MovieRelatedHolder;
 import com.adg.homeboy.ui.type.holder.TypeChildHolder;
 import com.adg.homeboy.ui.type.holder.TypeParentHolder;
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.adg.homeboy.util.BaseRecyclerViewAdapter;
+import com.adg.homeboy.util.BaseViewHolder;
 
 import java.security.InvalidParameterException;
 
@@ -20,7 +20,7 @@ import java.security.InvalidParameterException;
  * Created by liuxiaoyu on 2017/12/26.
  */
 
-public class MovieTypeAdapter extends RecyclerArrayAdapter<MovieType> {
+public class MovieTypeAdapter extends BaseRecyclerViewAdapter<MovieType> {
 
     public static final int PARENT = 1;
     public static final int CHILD = 2;

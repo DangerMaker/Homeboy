@@ -1,9 +1,9 @@
 package com.adg.homeboy.ui.type;
 
 import android.content.Intent;
-import android.content.SyncStatusObserver;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.FrameLayout;
@@ -11,16 +11,15 @@ import android.widget.ProgressBar;
 
 import com.adg.homeboy.R;
 import com.adg.homeboy.base.BaseFragment;
-import com.adg.homeboy.repository.AmazingStore;
 import com.adg.homeboy.repository.model.MovieType;
 import com.adg.homeboy.repository.net.RetrofitHelper;
 import com.adg.homeboy.repository.response.MoiveTypeMapResp;
-import com.adg.homeboy.ui.home.AmazingListAdapter;
 import com.adg.homeboy.ui.list.MovieListActivity;
-import com.jude.easyrecyclerview.EasyRecyclerView;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.adg.homeboy.util.BaseRecyclerViewAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,8 @@ import retrofit2.Response;
 
 public class TypeMapFragment extends BaseFragment {
 
-    EasyRecyclerView mRecyclerView;
+    RecyclerView mRecyclerView;
+    SmartRefreshLayout refreshLayout;
     MovieTypeAdapter adapter;
     GridLayoutManager manager;
 
@@ -57,29 +57,33 @@ public class TypeMapFragment extends BaseFragment {
                 }
             }
         });
-        mRecyclerView = (EasyRecyclerView) rootView.findViewById(R.id.recycler);
+        mRecyclerView =  rootView.findViewById(R.id.recycler);
         mRecyclerView.setLayoutManager(manager);
-        FrameLayout frameLayout = new FrameLayout(mContext);
-        ProgressBar progressBar = new ProgressBar(mContext);
-        FrameLayout.LayoutParams vlp = new FrameLayout.LayoutParams(200, 200);
-        vlp.gravity = Gravity.CENTER;
-        progressBar.setLayoutParams(vlp);
-        frameLayout.addView(progressBar);
-
-        mRecyclerView.setProgressView(frameLayout);
         adapter = new MovieTypeAdapter(mContext);
-        mRecyclerView.setAdapterWithProgress(adapter);
+        mRecyclerView.setAdapter(adapter);
+        refreshLayout = rootView.findViewById(R.id.refreshLayout);
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                getList();
+            }
+        });
 
-//        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//                Intent intent = new Intent(mContext, MovieListActivity.class);
-//                intent.putExtra("typeid",adapter.getItem(position).id);
-////                startActivity(intent);
-//                Log.e("type",adapter.getItem(position).id + "");
-//            }
-//        });
+        adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(mContext, MovieListActivity.class);
+                intent.putExtra("typeid",adapter.getItem(position).id);
+                startActivity(intent);
+                Log.e("type",adapter.getItem(position).id + "");
+            }
+        });
 
+        refreshLayout.autoRefresh();
+    }
+
+    private void getList(){
         Call<MoiveTypeMapResp> call = RetrofitHelper.getMoiveApi().getTypeMap();
         call.enqueue(new Callback<MoiveTypeMapResp>() {
             @Override
@@ -100,15 +104,17 @@ public class TypeMapFragment extends BaseFragment {
                         }
                     }
 
-                    adapter.addAll(sortList);
+                    adapter.clearAndAddAll(sortList);
+                    refreshLayout.finishRefresh(true);
                 }
             }
 
             @Override
             public void onFailure(Call<MoiveTypeMapResp> call, Throwable t) {
-
+                refreshLayout.finishRefresh(false);
             }
         });
 
     }
+
 }

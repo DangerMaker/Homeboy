@@ -5,7 +5,9 @@ import android.widget.TextView;
 
 import com.adg.homeboy.R;
 import com.adg.homeboy.repository.model.MovieDetail;
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.adg.homeboy.ui.home.holder.BannerHolder;
+import com.adg.homeboy.util.BaseRecyclerViewAdapter;
+import com.adg.homeboy.util.BaseViewHolder;
 
 /**
  * Created by liuxiaoyu on 2017/12/26.

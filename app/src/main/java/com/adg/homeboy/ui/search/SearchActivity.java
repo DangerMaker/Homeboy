@@ -63,6 +63,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     }
 
     public void toSearch(String word) {
+
         if (!word.equals("")) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.add(R.id.container, SearchResultFragment.getInstance(word));

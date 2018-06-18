@@ -16,9 +16,9 @@ import com.adg.homeboy.repository.model.MovieDetail;
 import com.adg.homeboy.repository.model.MovieType;
 import com.adg.homeboy.ui.list.MovieListActivity;
 import com.adg.homeboy.ui.type.MovieTypeAdapter;
+import com.adg.homeboy.util.BaseViewHolder;
 import com.adg.homeboy.util.ScreenUtil;
 import com.adg.homeboy.util.SystemUtils;
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
 /**
  * Created by liuxiaoyu on 2017/12/26.
@@ -55,14 +55,14 @@ public class TypeParentHolder extends BaseViewHolder<MovieType> {
         }
 
         name.setText(data.name);
-        rootview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        rootview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
 //                Intent intent = new Intent(getContext(), MovieListActivity.class);
 //                intent.putExtra("typeid",data.id);
 //                getContext().startActivity(intent);
-                Log.e("name,type",data.name + "," + data.id);
-            }
-        });
+//                Log.e("name,type",data.name + "," + data.id);
+//            }
+//        });
     }
 }

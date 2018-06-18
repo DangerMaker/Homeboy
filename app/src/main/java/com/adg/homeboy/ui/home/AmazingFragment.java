@@ -1,6 +1,7 @@
 package com.adg.homeboy.ui.home;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -20,8 +21,10 @@ import com.adg.homeboy.repository.response.AmazingModelResp;
 import com.adg.homeboy.ui.search.SearchActivity;
 import com.adg.homeboy.util.OnListScrollY;
 import com.adg.homeboy.util.SystemUtils;
-import com.jude.easyrecyclerview.EasyRecyclerView;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
@@ -34,7 +37,8 @@ import retrofit2.Response;
  */
 
 public class AmazingFragment extends BaseFragment {
-    EasyRecyclerView mRecyclerView;
+    SmartRefreshLayout refreshLayout;
+    RecyclerView mRecyclerView;
     AmazingListAdapter adapter;
     int offset = 0;
     OnListScrollY scrollY;
@@ -52,19 +56,26 @@ public class AmazingFragment extends BaseFragment {
 
     @Override
     protected void onCreateView() {
-        mRecyclerView = (EasyRecyclerView) rootView.findViewById(R.id.recycler);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
+        refreshLayout = rootView.findViewById(R.id.refreshLayout);
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getContext())
+                .setAccentColorId(android.R.color.white)
+                .setPrimaryColorId(android.R.color.transparent)
+        );
+
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                getModel();
+            }
+        });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        FrameLayout frameLayout = new FrameLayout(mContext);
-        ProgressBar progressBar = new ProgressBar(mContext);
-        FrameLayout.LayoutParams vlp = new FrameLayout.LayoutParams(200, 200);
-        vlp.gravity = Gravity.CENTER;
-        progressBar.setLayoutParams(vlp);
-        frameLayout.addView(progressBar);
 
-        mRecyclerView.setProgressView(frameLayout);
         adapter = new AmazingListAdapter(mContext);
-        mRecyclerView.setAdapterWithProgress(adapter);
+        mRecyclerView.setAdapter(adapter);
+
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -79,25 +90,7 @@ public class AmazingFragment extends BaseFragment {
             }
         });
 
-//        adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
-//            @Override
-//            public View onCreateView(ViewGroup parent) {
-//                View searchView = LayoutInflater.from(getContext()).inflate(R.layout.item_search,null);
-//                searchView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        startActivity(new Intent(mContext, SearchActivity.class));
-//                    }
-//                });
-//                return searchView;
-//            }
-//
-//            @Override
-//            public void onBindView(View headerView) {
-//
-//            }
-//        });
-        getModel();
+        refreshLayout.autoRefresh();
     }
 
     private void getModel() {
@@ -107,15 +100,16 @@ public class AmazingFragment extends BaseFragment {
             @Override
             public void onResponse(Call<AmazingModelResp> call, Response<AmazingModelResp> response) {
                 if (response.isSuccessful()) {
-                    adapter.addAll(response.body().data);
+                    adapter.clearAndAddAll(response.body().data);
+                    refreshLayout.finishRefresh(true);
                 } else {
-
+                    refreshLayout.finishRefresh(false);
                 }
             }
 
             @Override
             public void onFailure(Call<AmazingModelResp> call, Throwable t) {
-
+                refreshLayout.finishRefresh(false);
             }
         });
     }

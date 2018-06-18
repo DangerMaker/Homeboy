@@ -1,8 +1,10 @@
 package com.adg.homeboy.ui.search;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -15,9 +17,13 @@ import com.adg.homeboy.repository.net.RetrofitHelper;
 import com.adg.homeboy.repository.response.MovieListResp;
 import com.adg.homeboy.ui.list.MovieListFragment;
 import com.adg.homeboy.ui.movie.holder.MovieRelatedHolder;
-import com.jude.easyrecyclerview.EasyRecyclerView;
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.adg.homeboy.util.BaseRecyclerViewAdapter;
+import com.adg.homeboy.util.BaseViewHolder;
+import com.adg.homeboy.util.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,8 +35,9 @@ import retrofit2.Response;
 
 public class SearchResultFragment extends BaseFragment {
 
-    EasyRecyclerView mRecyclerView;
-    RecyclerArrayAdapter<MovieModel> mAdapter;
+    SmartRefreshLayout refreshLayout;
+    RecyclerView mRecyclerView;
+    BaseRecyclerViewAdapter<MovieModel> mAdapter;
     GridLayoutManager gridLayoutManager;
     String keyword = "";
     int page = 0;
@@ -52,61 +59,74 @@ public class SearchResultFragment extends BaseFragment {
     protected void onCreateView() {
         keyword = getArguments().getString("keyword");
 
-        mRecyclerView = (EasyRecyclerView) rootView.findViewById(R.id.recycler);
+        refreshLayout = rootView.findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+//                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+                refreshLayout.setEnableLoadMore(true);
+                page = 0;
+                getList(true);
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+//                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+                page++;
+                getList(false);
+            }
+        });
+
+        refreshLayout.autoRefresh();
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler);
         if (mAdapter == null)
-            mAdapter = new RecyclerArrayAdapter<MovieModel>(mContext) {
+            mAdapter = new BaseRecyclerViewAdapter<MovieModel>(mContext) {
                 @Override
                 public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
                     return new MovieRelatedHolder(parent);
                 }
             };
-
-        FrameLayout frameLayout = new FrameLayout(mContext);
-        ProgressBar progressBar = new ProgressBar(mContext);
-        FrameLayout.LayoutParams vlp = new FrameLayout.LayoutParams(200, 200);
-        vlp.gravity = Gravity.CENTER;
-        progressBar.setLayoutParams(vlp);
-        frameLayout.addView(progressBar);
-
-        mRecyclerView.setProgressView(frameLayout);
-        mRecyclerView.setErrorView(R.layout.view_error);
-        mAdapter.setNoMore(R.layout.view_nomore);
-        mAdapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
-            @Override
-            public void onMoreShow() {
-                page++;
-                getList();
-            }
-
-            @Override
-            public void onMoreClick() {
-
-            }
-        });
-
-
-        mRecyclerView.setAdapterWithProgress(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
         gridLayoutManager = new GridLayoutManager(mContext, 3);
         mRecyclerView.setLayoutManager(gridLayoutManager);
-        getList();
+
+        refreshLayout.autoRefresh();
     }
 
-    private void getList() {
+    private void getList(final boolean isRefresh) {
         Call<MovieListResp> resp = RetrofitHelper.getMoiveApi().getList(-1, keyword, -1, page);
         resp.enqueue(new Callback<MovieListResp>() {
             @Override
             public void onResponse(Call<MovieListResp> call, Response<MovieListResp> response) {
                 if (response.isSuccessful()) {
-                    mAdapter.addAll(response.body().data);
-                    if (mAdapter.getAllData().isEmpty()) {
-                        mRecyclerView.showEmpty();
+                    if (isRefresh) {
+                        mAdapter.clear();
                     }
+
+                    if(!response.body().data.isEmpty()) {
+                        mAdapter.addAll(response.body().data);
+                    }else{
+                        if(!isRefresh){
+                            ToastUtil.message(mContext,"以经到底了");
+                            refreshLayout.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    refreshLayout.setEnableLoadMore(false);
+                                }
+                            },1000);
+                        }
+                    }
+                    refreshLayout.finishRefresh(true);
+                    refreshLayout.finishLoadMore(true);
+
                 }
             }
 
             @Override
             public void onFailure(Call<MovieListResp> call, Throwable t) {
-
+                refreshLayout.finishRefresh(false);
+                refreshLayout.finishLoadMore(false);
             }
         });
     }

@@ -16,10 +16,10 @@ import com.adg.homeboy.R;
 import com.adg.homeboy.repository.model.AmazingModel;
 import com.adg.homeboy.repository.model.MovieModel;
 import com.adg.homeboy.ui.list.MovieListActivity;
+import com.adg.homeboy.util.BaseViewHolder;
 import com.adg.homeboy.util.ImageLoader;
 import com.adg.homeboy.util.ScreenUtil;
 import com.adg.homeboy.util.eventbus.TabEvent;
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -79,7 +79,7 @@ public class  TitleHolder extends BaseViewHolder<AmazingModel> {
             @Override
             public void onClick(View v) {
                 if (model.id == 0) {
-                    EventBus.getDefault().post(new TabEvent());
+                    EventBus.getDefault().post(new TabEvent(1));
                 } else {
                     Intent intent = new Intent(getContext(), MovieListActivity.class);
                     intent.putExtra("typeid", model.id);

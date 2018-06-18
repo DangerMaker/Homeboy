@@ -7,8 +7,8 @@ import com.adg.homeboy.repository.model.MovieDetail;
 import com.adg.homeboy.repository.model.MovieModel;
 import com.adg.homeboy.ui.movie.holder.MovieDetalHolder;
 import com.adg.homeboy.ui.movie.holder.MovieRelatedHolder;
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.adg.homeboy.util.BaseRecyclerViewAdapter;
+import com.adg.homeboy.util.BaseViewHolder;
 
 import java.security.InvalidParameterException;
 
@@ -16,7 +16,7 @@ import java.security.InvalidParameterException;
  * Created by liuxiaoyu on 2017/12/26.
  */
 
-public class MovieDetailAdapter extends RecyclerArrayAdapter<Object> {
+public class MovieDetailAdapter extends BaseRecyclerViewAdapter<Object> {
 
     public static final int DES = 1;
     public static final int ESLE = 2;

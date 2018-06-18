@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 
 import com.adg.homeboy.R;
 import com.adg.homeboy.repository.model.AmazingModel;
+import com.adg.homeboy.util.BaseViewHolder;
 import com.adg.homeboy.view.BannerView;
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
 /**
  * Created by liuxiaoyu on 2017/12/21.

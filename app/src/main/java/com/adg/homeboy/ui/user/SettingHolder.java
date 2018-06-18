@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.adg.homeboy.R;
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.adg.homeboy.util.BaseViewHolder;
 
 /**
  * Created by liuxiaoyu on 2018/3/10.

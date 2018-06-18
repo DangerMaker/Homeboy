@@ -194,7 +194,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onTabEvent(TabEvent event) {/* Do something */
-        switchTab(1);
+        switchTab(event.position);
     }
 
     @Override

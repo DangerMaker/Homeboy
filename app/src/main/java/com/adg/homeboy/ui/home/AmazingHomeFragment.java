@@ -1,18 +1,25 @@
 package com.adg.homeboy.ui.home;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.adg.homeboy.R;
 import com.adg.homeboy.base.BaseFragment;
 import com.adg.homeboy.ui.EasyFragment;
 import com.adg.homeboy.ui.EmptyFragment;
+import com.adg.homeboy.ui.search.SearchActivity;
 import com.adg.homeboy.util.OnListScrollY;
 import com.adg.homeboy.util.SystemUtils;
+import com.adg.homeboy.util.eventbus.TabEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +28,7 @@ import java.util.List;
  * Created by liuxiaoyu on 2017/12/20.
  */
 
-public class AmazingHomeFragment extends BaseFragment {
+public class AmazingHomeFragment extends BaseFragment implements View.OnClickListener {
 
     List<EasyFragment> fragments;
 
@@ -33,6 +40,7 @@ public class AmazingHomeFragment extends BaseFragment {
     ImageView searchBg;
     TextView searchTv;
     ImageView line;
+    RelativeLayout searchEnter;
     int lastoffset = 0;
 
     AmazingHomeAdatper adapter;
@@ -51,6 +59,9 @@ public class AmazingHomeFragment extends BaseFragment {
         searchBg = (ImageView) rootView.findViewById(R.id.search_bg);
         searchTv = (TextView) rootView.findViewById(R.id.search_txt);
         line = (ImageView) rootView.findViewById(R.id.line);
+        searchEnter = rootView.findViewById(R.id.search_enter);
+        searchEnter.setOnClickListener(this);
+        clock.setOnClickListener(this);
 
         AmazingFragment f1 = AmazingFragment.getInstance(new OnListScrollY() {
             @Override
@@ -64,7 +75,7 @@ public class AmazingHomeFragment extends BaseFragment {
                     searchTv.setTextColor(Color.argb(255, 255 - offset, 255 - offset, 255 - offset));
                     line.setColorFilter(Color.argb(255, 255 - offset, 255 - offset, 255 - offset));
                 } else {
-                    if(lastoffset > 255){
+                    if (lastoffset > 255) {
                         return;
                     }
                     topBg.setAlpha(0f);
@@ -92,5 +103,17 @@ public class AmazingHomeFragment extends BaseFragment {
 
 //        tableLayout.setupWithViewPager(viewPager);
 //        tableLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.search_enter:
+                startActivity(new Intent(getContext(), SearchActivity.class));
+                break;
+            case R.id.clock:
+                EventBus.getDefault().post(new TabEvent(2));
+                break;
+        }
     }
 }
